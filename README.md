@@ -18,7 +18,10 @@ A web-based decentralized voting platform for DAOs, where members can propose, d
 - Backend: Node.js, Express.js, MongoDB.
 - Smart Contracts: Ethereum.
 - Authentication: OAuth.
-<!-- 
+
+**Note** This is a work in progress. Please reach out to me if you want to collaborate!
+
+<!--
 **Installation:**
 
 1. Clone the repository:

@@ -91,3 +91,46 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - If you have any questions or need assistance, please contact [your email address].
 
 --- -->
+
+Data Storing
+Data to Store on the Blockchain:
+
+Proposal Data: Core data related to proposals, including:
+
+Proposal title and description.
+Proposal creator (user's Ethereum address).
+Number of "yes" and "no" votes.
+Proposal status (e.g., pending, approved, rejected).
+Proposal execution status.
+Voting Data: Information about individual votes, such as:
+
+User's Ethereum address.
+Proposal being voted on.
+Vote choice ("yes" or "no").
+Timestamp of the vote.
+User Authentication: Storing user identities, which are represented by their Ethereum addresses, is a common use of the blockchain. However, sensitive user data is typically not stored on the blockchain but is instead verified and linked to blockchain identities.
+
+Data to Store in MongoDB (or a Traditional Database):
+
+User Profiles: Sensitive user data and additional profile information should be stored in MongoDB. This data can include:
+
+Username.
+Email.
+Password hashes (for authentication).
+User roles (e.g., member, admin).
+Profile information (e.g., full name, profile picture, contact information).
+Historical Voting Data: A record of all votes cast in the past, including details such as:
+
+User's Ethereum address.
+Proposal voted on.
+Vote choice ("yes" or "no").
+Timestamp of the vote.
+Proposal Descriptions and Additional Information: Proposal descriptions and any additional metadata about proposals that are too large or dynamic to store on the blockchain, such as:
+
+Detailed descriptions of proposals.
+Attachments or files related to proposals.
+Tags or categories for proposals.
+Proposal comments or discussions.
+System Logs and Application State: Information about the application's state, logs, and other non-critical data related to system operations and user interactions.
+
+In summary, the blockchain is primarily used for managing the core DAO operations, such as proposal creation, voting, and execution, as well as user authentication through Ethereum addresses. MongoDB or a traditional database complements the blockchain by storing sensitive user data, historical voting data, rich proposal descriptions, and other non-essential application data. This hybrid approach ensures data security, scalability, and optimal use of resources in your DAO Voting Platform.

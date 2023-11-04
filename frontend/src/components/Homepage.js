@@ -8,7 +8,6 @@ const HomePage = () => {
   const sampleProposals = [
     { id: 1, title: "Proposal 1", description: "Description for Proposal 1" },
     { id: 2, title: "Proposal 2", description: "Description for Proposal 2" },
-    // Add more sample proposals here
   ];
 
   // Simulated user data
@@ -20,11 +19,11 @@ const HomePage = () => {
 
   useEffect(() => {
     // Fetch proposals from the blockchain or API
-    // In a real application, you would use a library like web3.js to interact with smart contracts
+    // web3.js to interact with smart contracts
     setProposals(sampleProposals);
 
     // Fetch user data or check user authentication
-    // You might use a library like Metamask for Ethereum authentication
+    // Metamask for Ethereum authentication
     setUser(sampleUser);
   }, []);
 

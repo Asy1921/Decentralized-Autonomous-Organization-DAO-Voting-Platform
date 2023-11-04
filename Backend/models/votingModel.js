@@ -16,7 +16,6 @@ const votingSchema = new mongoose.Schema(
       type: String, // 'yes' or 'no'
       required: true,
     },
-    // Additional voting fields can be added here
   },
   {
     timestamps: true,

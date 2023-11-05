@@ -22,8 +22,6 @@ contract("User", (accounts) => {
   });
 
   it("should prevent registering users with the same username", async () => {
-    await userContract.registerUser("charlie", { from: accounts[3] });
-
     try {
       await userContract.registerUser("alice", { from: accounts[4] });
       assert.fail("Registering with the same username should fail");
@@ -40,7 +38,7 @@ contract("User", (accounts) => {
     await userContract.registerUser("dave", { from: accounts[5] });
     await userContract.markVoted(accounts[5]);
 
-    const [username, hasVoted] = await userContract.getUserInfo(accounts[5]);
+    const [, hasVoted] = await userContract.getUserInfo(accounts[5]);
     assert.equal(
       hasVoted,
       true,
@@ -49,11 +47,8 @@ contract("User", (accounts) => {
   });
 
   it("should not allow marking users as voted more than once", async () => {
-    await userContract.registerUser("eve", { from: accounts[6] });
-    await userContract.markVoted(accounts[6]);
-
     try {
-      await userContract.markVoted(accounts[6]);
+      await userContract.markVoted(accounts[5]);
       assert.fail("Marking as voted more than once should fail");
     } catch (error) {
       assert.include(

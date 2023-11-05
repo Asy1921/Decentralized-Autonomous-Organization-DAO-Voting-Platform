@@ -7,13 +7,12 @@ contract("Proposal", (accounts) => {
   before(async () => {
     proposal = await Proposal.new(
       "Sample Proposal",
-      "This is a sample proposal.",
+      "This is a sample proposal",
       {
         from: accounts[0],
       }
     );
   });
-
   it("should have the correct initial properties", async () => {
     const title = await proposal.title();
     const description = await proposal.description();
@@ -22,7 +21,7 @@ contract("Proposal", (accounts) => {
     assert.equal(title, "Sample Proposal", "Title does not match");
     assert.equal(
       description,
-      "This is a sample proposal.",
+      "This is a sample proposal",
       "Description does not match"
     );
     assert.equal(creator, accounts[0], "Creator does not match");
@@ -32,18 +31,18 @@ contract("Proposal", (accounts) => {
     await proposal.vote(true, { from: accounts[1] });
     await proposal.vote(false, { from: accounts[2] });
 
-    const yesVotes = await proposal.yesVotes();
-    const noVotes = await proposal.noVotes();
+    const yesVotes = (await proposal.yesVotes()).toNumber();
+    const noVotes = (await proposal.noVotes()).toNumber();
 
     assert.equal(yesVotes, 1, "Yes votes count is incorrect");
     assert.equal(noVotes, 1, "No votes count is incorrect");
   });
 
   it("should not allow voting on executed proposals", async () => {
-    await proposal.vote(true, { from: accounts[3] });
+    await proposal.executeProposal();
 
     try {
-      await proposal.vote(true, { from: accounts[4] });
+      await proposal.vote(true, { from: accounts[3] });
       assert.fail("Voting on an executed proposal should fail");
     } catch (error) {
       assert.include(

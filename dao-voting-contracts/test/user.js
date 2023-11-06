@@ -12,13 +12,27 @@ contract("User", (accounts) => {
     await userContract.registerUser("alice", { from: accounts[1] });
     await userContract.registerUser("bob", { from: accounts[2] });
 
-    const [username1, hasVoted1] = await userContract.getUserInfo(accounts[1]);
-    const [username2, hasVoted2] = await userContract.getUserInfo(accounts[2]);
+    const [aliceInfo, bobInfo] = await Promise.all([
+      userContract.users(accounts[1]),
+      userContract.users(accounts[2]),
+    ]);
 
-    assert.equal(username1, "alice", "Username of the first user is incorrect");
-    assert.equal(username2, "bob", "Username of the second user is incorrect");
-    assert.equal(hasVoted1, false, "User's voting status is incorrect");
-    assert.equal(hasVoted2, false, "User's voting status is incorrect");
+    assert.equal(
+      aliceInfo.username,
+      "alice",
+      "Username of the first user is incorrect"
+    );
+    assert.equal(
+      bobInfo.username,
+      "bob",
+      "Username of the second user is incorrect"
+    );
+    assert.equal(
+      aliceInfo.hasVoted,
+      false,
+      "User's voting status is incorrect"
+    );
+    assert.equal(bobInfo.hasVoted, false, "User's voting status is incorrect");
   });
 
   it("should prevent registering users with the same username", async () => {
@@ -36,11 +50,11 @@ contract("User", (accounts) => {
 
   it("should mark users as voted", async () => {
     await userContract.registerUser("dave", { from: accounts[5] });
-    await userContract.markVoted(accounts[5]);
+    await userContract.markVoted({ from: accounts[5] });
 
-    const [, hasVoted] = await userContract.getUserInfo(accounts[5]);
+    const daveInfo = await userContract.users(accounts[5]);
     assert.equal(
-      hasVoted,
+      daveInfo.hasVoted,
       true,
       "User's voting status should be true after marking as voted"
     );
@@ -48,7 +62,7 @@ contract("User", (accounts) => {
 
   it("should not allow marking users as voted more than once", async () => {
     try {
-      await userContract.markVoted(accounts[5]);
+      await userContract.markVoted({ from: accounts[5] });
       assert.fail("Marking as voted more than once should fail");
     } catch (error) {
       assert.include(

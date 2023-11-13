@@ -89,10 +89,10 @@ module.exports = {
         new HDWalletProvider({
           privateKeys: privateKeys,
           providerOrUrl:
-            "https://linea-mainnet.infura.io/v3/a1ed0a15c2504aeea417179f0a1fa421",
+            "https://linea-goerli.infura.io/v3/7079fa642df447608611a260d273632b",
           numberOfAddress: 2,
         }),
-      network_id: 59144, // Goerli's id
+      network_id: 59140, // linea's id
       confirmations: 2, // # of confirmations to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
@@ -114,7 +114,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.21", // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.13", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {

@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+// Proposal.sol
+pragma solidity ^0.8.0;
 
 contract Proposal {
     string public title;
@@ -10,7 +10,10 @@ contract Proposal {
     uint256 public noVotes;
     mapping(address => bool) public hasVoted;
 
-    constructor(string memory _title, string memory _description) {
+    constructor(string memory _title, string memory _description) public {
+        require(bytes(_title).length > 0, "Title cannot be empty");
+        require(bytes(_description).length > 0, "Description cannot be empty");
+
         title = _title;
         description = _description;
         creator = msg.sender;
@@ -30,11 +33,16 @@ contract Proposal {
         hasVoted[msg.sender] = true;
     }
 
-    // View function to retrieve proposal data
-
-    // Function to execute the proposal
     function executeProposal() public {
         require(!executed, "Proposal has already been executed");
         executed = true;
+    }
+
+    function getProposalData()
+        public
+        view
+        returns (string memory, string memory, address, bool, uint256, uint256)
+    {
+        return (title, description, creator, executed, yesVotes, noVotes);
     }
 }
